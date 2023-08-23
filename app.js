@@ -34,6 +34,12 @@ sequelize
     process.exit();
   });
 
+// import routes
+const user = require('./routes/user.routes');
+
+// set up routing paths
+app.use('/api/user', user);
+
 // start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
