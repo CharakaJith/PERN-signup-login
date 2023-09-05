@@ -36,9 +36,11 @@ sequelize
 
 // import routes
 const user = require('./routes/user.routes');
+const otp = require('./routes/otp.routes');
 
 // set up routing paths
 app.use('/api/user', user);
+app.use('/api/otp', otp);
 
 // start the server
 const PORT = process.env.PORT || 3000;
