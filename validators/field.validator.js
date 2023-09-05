@@ -7,6 +7,12 @@ const FieldValidator = {
     }
   },
 
+  checkIfEmptyNumber: async (field, fieldName) => {
+    if (!field) {
+      throw new Error(`The ${fieldName} field is empty!`);
+    }
+  },
+
   checkIfValidName: async (field, fieldName) => {
     const nameFormat = /^[A-Za-z ]+$/;
 

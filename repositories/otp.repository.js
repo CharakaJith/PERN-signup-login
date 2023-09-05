@@ -21,7 +21,7 @@ const OtpRepository = {
    * @param {Object} otpDetails: otp details object
    * @returns an object otp code details if exsists, else null
    */
-  getActiveOtpByUserId: async (otpDetails) => {
+  getOtpDetails: async (otpDetails) => {
     try {
       return await models.otp.findOne({
         where: otpDetails,
@@ -30,6 +30,24 @@ const OtpRepository = {
       throw new Error(
         `Internal server error while getting active otp by user id: ${error.message}`
       );
+    }
+  },
+
+  /**
+   * Function to update a record in table "otps" by field 'id'
+   *
+   * @param {Object} otpDetails: otp details object
+   * @param {Integer} otpId: otp id
+   */
+  updateOtpDetails: async (otpDetails, otpId) => {
+    try {
+      await models.otp.update(otpDetails, {
+        where: {
+          id: otpId,
+        },
+      });
+    } catch (error) {
+      throw new Error(`Internal server error while updating otp by user id: ${error.message}`);
     }
   },
 };

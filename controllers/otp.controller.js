@@ -17,6 +17,27 @@ const OtpController = {
       });
     }
   },
+
+  verifyOtpCode: async (req, res) => {
+    try {
+      const { otp } = req.body;
+      const { id: userId } = req.user;
+
+      const data = { otp, userId };
+
+      const verifyOtpResponse = await OtpService.verifyOtpCode(data);
+
+      res.json({
+        success: true,
+        message: verifyOtpResponse,
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = OtpController;

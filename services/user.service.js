@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const FieldValidator = require('../validators/field.validator');
 const ExposableIdGenerator = require('../common/exposableIdGenerator');
-const JwtGeneraor = require('../util/jwtGenerator');
+const jwt_service = require('../util/jwt_service');
 const UserRepository = require('../repositories/user.repository');
 
 const UserService = {
@@ -79,7 +79,7 @@ const UserService = {
         name: `${user.firstName} ${user.lastName}`,
         email: user.email,
       };
-      const accessToken = await JwtGeneraor.generateAccessToken(tokenUser);
+      const accessToken = await jwt_service.generate_access_token(tokenUser);
 
       return {
         accessToken: accessToken,

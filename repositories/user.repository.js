@@ -16,6 +16,24 @@ const UserRepository = {
   },
 
   /**
+   * Function to update a record in table "user" by field 'id'
+   *
+   * @param {Object} user: user detail object
+   * @param {Integer} userId: id of the user
+   */
+  updateUser: async (user, userId) => {
+    try {
+      await models.user.update(user, {
+        where: {
+          id: userId,
+        },
+      });
+    } catch (error) {
+      throw new Error(`Internal server error while updating user: ${error.message}`);
+    }
+  },
+
+  /**
    * Function to get a record from table "users" by field 'email'
    *
    * @param {String} email: email of the user

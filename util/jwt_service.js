@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const JwtGeneraor = {
-  generateAccessToken: async (tokenUser) => {
+const jwt_service = {
+  generate_access_token: async (tokenUser) => {
     try {
       return jwt.sign({ tokenUser }, process.env.JWT_SECRET, {
         expiresIn: '24h',
@@ -14,4 +14,4 @@ const JwtGeneraor = {
   },
 };
 
-module.exports = JwtGeneraor;
+module.exports = jwt_service;
