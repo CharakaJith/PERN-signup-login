@@ -100,6 +100,29 @@ const UserService = {
     }
   },
 
+  getUserDetails: async (data) => {
+    try {
+      const { email } = data;
+
+      const user = await UserRepository.getUserByEmail(email);
+
+      return {
+        id: user.id,
+        displayId: user.displayId,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        birthDate: user.birthDate,
+        gender: user.gender,
+        email: user.email,
+        mobile: user.mobile,
+        isVerified: user.isVerified,
+        isActive: user.isActive,
+      };
+    } catch (error) {
+      throw error;
+    }
+  },
+
   userLogout: async (data) => {
     try {
       const { token, userId } = data;

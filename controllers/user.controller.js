@@ -41,6 +41,24 @@ const UserController = {
     }
   },
 
+  getUserDetails: async (req, res) => {
+    try {
+      const data = ({ email } = req.user);
+
+      const getUserDetailsResponse = await UserService.getUserDetails(data);
+
+      res.json({
+        success: true,
+        message: getUserDetailsResponse,
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        error: error.message,
+      });
+    }
+  },
+
   userLogout: async (req, res) => {
     try {
       const { authorization: token } = req.headers;

@@ -14,6 +14,12 @@ const BlacklistedJwtRepository = {
     }
   },
 
+  /**
+   * Function to get a record from table "blacklistedJwts" by field 'jwt'
+   *
+   * @param {String} jwt: jwt token
+   * @returns a blacklisted jwt token object if exists, else null
+   */
   getJwt: async (jwt) => {
     try {
       return await models.blacklistedJwt.findOne({
