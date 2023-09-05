@@ -3,6 +3,7 @@ const FieldValidator = require('../validators/field.validator');
 const ExposableIdGenerator = require('../common/exposableIdGenerator');
 const jwt_service = require('../util/jwt_service');
 const UserRepository = require('../repositories/user.repository');
+const BlacklistedJwtRepository = require('../repositories/blacklisted.jwt.repository');
 
 const UserService = {
   registerNewUser: async (data) => {
@@ -65,6 +66,9 @@ const UserService = {
       if (!user.isActive) {
         // TODO: make user do something to re-active account
       }
+      if (!user.isVerified) {
+        throw new Error('Account is not verified!');
+      }
 
       // validate password
       const isValidPassword = await bcrypt.compare(password, user.password);
@@ -91,6 +95,23 @@ const UserService = {
           email: user.email,
         },
       };
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  userLogout: async (data) => {
+    try {
+      const { token, userId } = data;
+
+      // save jwt in table
+      const jwtDetails = {
+        userId: userId,
+        jwt: token,
+      };
+      await BlacklistedJwtRepository.addNewJwt(jwtDetails);
+
+      return 'User logout!';
     } catch (error) {
       throw error;
     }

@@ -40,6 +40,30 @@ const UserController = {
       });
     }
   },
+
+  userLogout: async (req, res) => {
+    try {
+      const { authorization: token } = req.headers;
+      const { id: userId } = req.user;
+
+      const data = {
+        token,
+        userId,
+      };
+
+      const userLogoutResponse = await UserService.userLogout(data);
+
+      res.json({
+        success: true,
+        message: userLogoutResponse,
+      });
+    } catch (error) {
+      res.json({
+        success: false,
+        error: error.message,
+      });
+    }
+  },
 };
 
 module.exports = UserController;
